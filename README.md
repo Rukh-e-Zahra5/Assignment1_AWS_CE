@@ -1,248 +1,97 @@
-\# Assignment1\_AWS\_CE
+# UniEvent AWS Deployment
+
+Name: Rukh-e-Zahra
 
 
+##  Project Overview
 
-\## AWS EC2 Flask Deployment
-
-
-
-This project demonstrates how to deploy a Python Flask application on an AWS EC2 instance and access it through a public IP address.
-
-
+This project demonstrates the deployment of a web application on AWS using EC2 instances and an Application Load Balancer. The goal is to achieve high availability by distributing traffic across multiple servers.
 
 ---
 
+## Setup Details
 
-
-\# Project Overview
-
-
-
-The application fetches event data from an external API and displays it in JSON format.
-
-The Flask application is deployed on an AWS EC2 instance and accessed through the internet using the EC2 public IP address.
-
-
+* **Cloud Platform:** AWS
+* **Instances:** 2 EC2 instances (Amazon Linux)
+* **Instance Type:** t3.micro
+* **Load Balancer:** Application Load Balancer
+* **Target Group Port:** 5000
+* **Application:** Flask (Python)
+* **Ports Used:** 22 (SSH), 80 (HTTP), 5000 (Flask), 9000 (File transfer)
 
 ---
 
+##  Deployment Steps
 
-
-\# Technologies Used
-
-
-
-\* Python
-
-\* Flask
-
-\* AWS EC2
-
-\* GitHub
-
-\* Linux (Amazon Linux)
-
-
+1. Launched two EC2 instances.
+2. Installed Python and Flask on both servers.
+3. Deployed the same Flask application on both instances.
+4. Configured Security Groups to allow HTTP traffic.
+5. Created a Target Group with port 5000.
+6. Registered both instances in the Target Group.
+7. Created an Application Load Balancer.
+8. Linked Load Balancer with Target Group.
+9. Verified health checks for both instances.
 
 ---
 
+##  Application URL
 
+http://<your-load-balancer-dns>
 
-\# Project Structure
-
-
-
-Assignment1\_AWS\_CE
-
-│
-
-├── app.py
-
-├── requirements.txt
-
-├── templates/
-
-├── static/
-
-└── README.md
-
-
+*(Replace with your actual Load Balancer DNS)*
 
 ---
 
+##  Application Behavior
 
+The Flask application returns a unique message from each server:
 
-\# Step 1: Create EC2 Instance
+* Hello from UniEvent Server 1
+* Hello from UniEvent Server 2
 
-
-
-1\. Login to AWS Console
-
-2\. Open EC2 Dashboard
-
-3\. Click \*\*Launch Instance\*\*
-
-4\. Select \*\*Amazon Linux\*\*
-
-5\. Choose instance type \*\*t2.micro\*\*
-
-6\. Create a key pair (`univent-key.pem`)
-
-7\. Launch the instance
-
-
+This allows verification that traffic is being distributed between both servers.
 
 ---
 
+##  Load Balancing Result
 
+When accessing the Load Balancer URL and refreshing multiple times, the response alternates between:
 
-\# Step 2: Configure Security Group
+* Hello from UniEvent Server 1
+* Hello from UniEvent Server 2
 
-
-
-Add inbound rules:
-
-
-
-| Type       | Port |
-
-| ---------- | ---- |
-
-| SSH        | 22   |
-
-| HTTP       | 80   |
-
-| Custom TCP | 5000 |
-
-
-
-Source: `0.0.0.0/0`
-
-
+This confirms that traffic is successfully distributed across both servers.
 
 ---
 
+##  Screenshots
 
+The following screenshots are included in the submission folder:
 
-\# Step 3: Connect to EC2 using SSH
-
-
-
-Run the following command:
-
-
-
-ssh -i univent-key.pem ec2-user@13.211.240.100
-
-
+1. EC2 Instances running
+2. Security Group configuration
+3. Target Group health status
+4. Load Balancer configuration
+5. Application output (Server 1 & Server 2)
 
 ---
 
+##  Key Concepts
 
-
-\# Step 4: Install Python and Dependencies
-
-
-
-Update system:
-
-
-
-sudo yum update -y
-
-
-
-Install Python:
-
-
-
-sudo yum install python3 -y
-
-
-
-Install project requirements:
-
-
-
-pip3 install -r requirements.txt
-
-
+* Load Balancing distributes traffic across multiple servers
+* Target Groups manage registered instances
+* Health Checks ensure only healthy servers receive traffic
+* Improves availability and reliability
 
 ---
 
+##  Conclusion
 
-
-\# Step 5: Run Flask Application
-
-
-
-Start the Flask server:
-
-
-
-python3 app.py
-
-
-
-The server runs on:
-
-
-
-http://0.0.0.0:5000
-
-
+This project successfully demonstrates load balancing using AWS. By distributing traffic across multiple EC2 instances, the system ensures high availability, scalability, and fault tolerance.
 
 ---
 
+##  Note
 
-
-\# Step 6: Access the Application
-
-
-
-Open the browser and visit:
-
-
-
-http://13.211.240.100:5000
-
-
-
-The application will return event data in JSON format.
-
-
-
----
-
-
-
-\# Result
-
-
-
-The Flask application was successfully deployed on AWS EC2 and accessed through the public IP address.
-
-
-
----
-
-
-
-\# Screenshots
-
-
-
-(Add screenshots here)
-
-
-
-\* EC2 instance running
-
-\* Security group inbound rules
-
-\* Terminal running Flask server
-
-\* Browser accessing the application
-
-
-
+AWS resources were terminated after testing to avoid additional charges.
