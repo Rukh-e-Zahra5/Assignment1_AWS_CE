@@ -39,7 +39,7 @@ This project demonstrates the deployment of a web application on AWS using EC2 i
 
 http://<your-load-balancer-dns>
 
-*(Replace with your actual Load Balancer DNS)*
+UniEvent-LB-1820399432.ap-southeast-2.elb.amazonaws.com
 
 ---
 
